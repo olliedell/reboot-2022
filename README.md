@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+---
+page_type: sample
+languages:
+- typescript
+- nodejs
+products:
+- azure
+- azure-communication-services
+---
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fcommunication-services-web-calling-hero%2Fmain%2Fdeploy%2Fazuredeploy.json)
 
-## Available Scripts
+# Group Calling Sample
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+This is a sample application to show how we can use the `@azure/communication-react` package to build a calling experience.
+Learn more about the [Azure Communication Services UI Library](https://azure.github.io/communication-ui-library/). 
+The client-side application is a React based user interface. Alongside this front-end is a NodeJS web application powered by ExpressJS that performs functionality like minting new user tokens for each call participant.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Additional documentation for this sample can be found on [Microsoft Docs](https://docs.microsoft.com/azure/communication-services/samples/calling-hero-sample).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Before contributing to this sample, please read our [contribution guidelines](./CONTRIBUTING.md).
 
-### `npm test`
+![Homepage](./Calling/Media/homepage-sample-calling.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ❤️ Feedback
+We appreciate your feedback and energy helping us improve our services. [Please let us know if you are satisfied with ACS through this survey](https://microsoft.qualtrics.com/jfe/form/SV_5dtYL81xwHnUVue). 
 
-### `npm run build`
+## Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [Visual Studio Code (Stable Build)](https://code.visualstudio.com/Download)
+- [Node.js (12.18.4 and above)](https://nodejs.org/en/download/)
+- Create an Azure account with an active subscription. For details, see [Create an account for free](https://azure.microsoft.com/free/?WT.mc_id=A261C142F).
+- Create an Azure Communication Services resource. For details, see [Create an Azure Communication Resource](https://docs.microsoft.com/azure/communication-services/quickstarts/create-communication-resource). You'll need to record your resource **connection string** for this quickstart.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Code structure
+- ./Calling/src/app: Where the client code lives
+- ./Calling/src/app/App.tsx:  Entry point into the calling sample 
+- ./Calling/src/app/views/HomeScreen.tsx:  
+- ./Calling/src/app/views/CallScreen.tsx:  
+- ./Calling/src/app/views/EndCall.tsx:  
+- ./Calling/src/app/views/UnsupportedBrowserPage.tsx:  
+- ./Server: server code
+- ./Server/appsettings.json: Where to put your azure communication services connection string
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Before running the sample for the first time
 
-### `npm run eject`
+1. Open an instance of PowerShell, Windows Terminal, Command Prompt or equivalent and navigate to the directory that you'd like to clone the sample to.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```shell
+   git clone https://github.com/Azure-Samples/communication-services-web-calling-hero.git`
+   ```
+   
+1. Get the `Connection String` from the Azure portal. For more information on connection strings, see [Create an Azure Communication Resources](https://docs.microsoft.com/azure/communication-services/quickstarts/create-communication-resource)
+1. Once you get the `Connection String`, add the connection string to the **samples/Server/appsetting.json** file. Input your connection string in the variable: `ResourceConnectionString`.
+1. Get the `Endpoint string` from the Azure portal. For more information on Endpoint strings, see [Create an Azure Communication Resources](https://docs.microsoft.com/azure/communication-services/quickstarts/create-communication-resource)
+1. Once you get the `Endpoint String`, add the endpoint string to the **samples/Server/appsetting.json** file. Input your endpoint string in the variable `EndpointUrl`
+## Local run
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Install dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    ```bash
+    npm run setup
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Start the calling app
 
-## Learn More
+    ```bash
+    npm run start
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    This will open a client server on port 3000 that serves the website files, and an api server on port 8080 that performs functionality like minting tokens for call participants.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Troubleshooting
 
-### Code Splitting
+1. The app shows an "Unsupported browser" screen but I am on a [supported browser](https://docs.microsoft.com/en-us/azure/communication-services/concepts/voice-video-calling/calling-sdk-features#calling-client-library-browser-support).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+	If your app is being served over a hostname other then localhost, you must serve traffic over https and not http.
 
-### Analyzing the Bundle Size
+## Publish to Azure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. `npm run setup`
+2. `npm run build`
+3. `npm run package`
+4. Use the [Azure extension](https://code.visualstudio.com/docs/azure/extensions) and deploy the `Calling/dist` directory to your app service
 
-### Making a Progressive Web App
+## Additional Reading
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [Azure Communication Services - UI Library](https://azure.github.io/communication-ui-library/) - To learn more about what the `@azure/communication-react` package offers.
+- [Azure Communication Calling SDK](https://docs.microsoft.com/azure/communication-services/concepts/voice-video-calling/calling-sdk-features) - To learn more about the calling web sdk
+- [FluentUI](https://developer.microsoft.com/fluentui#/) - Microsoft powered UI library
+- [React](https://reactjs.org/) - Library for building user interfaces
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
